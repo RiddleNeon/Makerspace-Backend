@@ -1,0 +1,27 @@
+{
+  "name": "makerspace-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RiddleNeon/Makerspace-Backend.git"
+  },
+  "author": "RiddleNeon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RiddleNeon/Makerspace-Backend/issues"
+  },
+  "homepage": "https://github.com/RiddleNeon/Makerspace-Backend#readme",
+  "dependencies": {
+    "better-auth": "^1.7.7"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "wrangler": "^4.147.0"
+  }
+}
