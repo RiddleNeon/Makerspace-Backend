@@ -1,12 +1,12 @@
 {
-	"name": "backend",
-	"main": "src/index.ts",
-	"compatibility_date": "2026-10-02",
-	"d1_databases": [
-		{
-			"binding": "DB",
-			"database_name": "auth",
-			"database_id": "8deeb1cc-d29a-4ca6-a4c2-a2f1f22b417d"
-		}
-	]
+  "name": "backend",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-10-02",
+  "d1_databases": [
+    {
+      "binding": "AUTH_DB",
+      "database_name": "auth",
+      "database_id": "8deeb1cc-d29a-4ca6-a4c2-a2f1f22b417d"
+    }
+  ]
 }

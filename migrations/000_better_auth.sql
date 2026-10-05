@@ -55,3 +55,16 @@ CREATE INDEX "session_userId_idx"
 
 CREATE INDEX "verification_identifier_idx"
     ON "verification" ("identifier");
+
+
+
+-- Custom
+
+CREATE TABLE "user_profile" (
+  "auth_user_id" text not null on delete cascade,
+  "role" text not null,
+
+  foreign key (auth_user_id) references "user" ("id")
+)
+
+

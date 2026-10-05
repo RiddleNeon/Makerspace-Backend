@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/RiddleNeon/Makerspace-Backend#readme",
   "dependencies": {
-    "better-auth": "^1.7.7"
+    "better-auth": "^1.7.7",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "typescript": "^7.0.2",
