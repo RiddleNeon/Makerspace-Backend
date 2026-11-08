@@ -7,6 +7,8 @@ export interface Env {
   AUTH_DB: D1Database;
   BETTER_AUTH_SECRET: string;
   BETTER_AUTH_URL: string;
+  OPENROUTER_API_KEY: string,
+  OPENCODE_API_KEY: string
 }
 
 const ALLOWED_ORIGINS = new Set([
@@ -106,7 +108,7 @@ export default {
         }),
         async (body) => {
           let idea = body.idea;
-          let response = await detect_filament_type(idea);
+          let response = await detect_filament_type(idea, env);
           return Response.json(response);
         })
     } else {
