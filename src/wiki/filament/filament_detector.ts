@@ -27,7 +27,8 @@ export async function detect_filament_type(description: string, env: Env): Promi
               "ASA": "An advanced alternative to ABS with identical mechanical strength and high heat deflection. It features exceptional UV and weather resistance, preventing degradation and color fading during long-term outdoor exposure.",
               "TPU": "A highly flexible, wear-resistant elastomer that absorbs vibration and high-velocity impacts through elastic deformation. Ideal for gaskets, tires, and shock-absorbing protective gear liners, though difficult to print on Bowden extruders.",
               "Nylon": "An incredibly durable engineering polymer with exceptional abrasion resistance and low surface friction. It yields ultra-tough, flexible mechanical components like gears, but is highly hygroscopic and warps heavily without proper drying.",
-              "PC": "An ultra-strong, structurally rigid material providing the highest heat deflection and maximum impact resistance without shattering. It requires extreme printing temperatures and is the industry standard for high-stress protective shells."
+              "PC": "An ultra-strong, structurally rigid material providing the highest heat deflection and maximum impact resistance without shattering. It requires extreme printing temperatures and is the industry standard for high-stress protective shells.",
+              "Not Printalble": "Anything that shouldnt be printed using a 3d printer. choose this if the required idea is not printable or the material you should use is not usable as a filament."
             }
           },
           "is_safe_to_print": {
@@ -59,8 +60,7 @@ export async function detect_filament_type(description: string, env: Env): Promi
   if (data.answers) {
     return { filamentType: data.answers.filament_type.choice, safety: data.answers.is_safe_to_print.noul }
   } else {
-    let key_start = env.OPENROUTER_API_KEY?.substring(0, 5);
-    return { filamentType: `${JSON.stringify(data_raw, null, 2) ?? ""} key: ${key_start}...`, safety: 0.5 }
+    return { filamentType: `unknown`, safety: 0.5 }
   }
 }
 
