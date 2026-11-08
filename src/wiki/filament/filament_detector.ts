@@ -33,10 +33,10 @@ export async function detect_filament_type(description: string, env: Env): Promi
           },
           "is_safe_to_print": {
             "type": "noul",
-            "instructions": "is the provided idea safe to print? could there be bacteria or safety problems?",
+            "instructions": "is the provided idea dangerous? could people get harmed by this product?",
             "criteria": {
               "true": "The provided idea is safe to print with the correct filament type. ",
-              "false": "The provided idea is not safe to print, due to bacteria, health, safety or other problems"
+              "false": "The provided idea is not safe to print, due to bad purposes, bacteria, health, safety or other aspects"
             }
           },
         }
