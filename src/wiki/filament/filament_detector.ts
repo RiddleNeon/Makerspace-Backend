@@ -4,7 +4,7 @@ dotenv.config({ path: "./.env" });
 console.log("-- API Key vorhanden?:", !!process.env.OPENROUTER_API_KEY);
 
 
-export async function detect_filament_type(description: string): Promise<string> {
+export async function detect_filament_type(description: string): Promise<{ filamentType: string, safety: number }> {
   console.log("API Key vorhanden?:", !!process.env.OPENROUTER_API_KEY);
   let response = await
     fetch("https://openrouter.ai/api/alpha/decisions", {
@@ -46,12 +46,23 @@ export async function detect_filament_type(description: string): Promise<string>
       })
     });
 
-  console.log("v2:");
+  type ApiResponse = {
+    answers?: {
+      filament_type: {
+        choice: string;
+      };
+      is_safe_to_print: {
+        noul: number;
+      };
+    };
+  };
 
-  const data = await response.json();
+  const data = await response.json() as ApiResponse;
 
-  console.log(`RESPONSE: `, data)
-
-  return "success";
+  if (data.answers) {
+    return { filamentType: data.answers.filament_type.choice, safety: data.answers.is_safe_to_print.noul }
+  } else {
+    return { filamentType: "unknown", safety: 0.5 }
+  }
 }
 

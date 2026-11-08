@@ -1,5 +1,5 @@
 import { handle_schedule_request } from "./schedule/schedule_manager";
-import { checkEmailAvailability, checkNameAvailability, createAuth, manage_admin, unauthenticatedJson } from "./auth/auth";
+import { authenticatedJson, checkEmailAvailability, checkNameAvailability, createAuth, manage_admin, unauthenticatedJson } from "./auth/auth";
 import { detect_filament_type } from "./wiki/filament/filament_detector";
 import z from "zod";
 
@@ -37,7 +37,6 @@ export default {
     const origin = request.headers.get("Origin");
     const corsHeaders = getCorsHeaders(origin);
 
-    // 1. Zentrale OPTIONS-Behandlung für ALLE Routen (Preflight)
     if (request.method === "OPTIONS") {
       if (!origin || !ALLOWED_ORIGINS.has(origin)) {
         return new Response("Origin not allowed", { status: 403 });
@@ -95,8 +94,21 @@ export default {
       url.pathname === "/api/wiki/filament/decide" &&
       request.method === "POST"
     ) {
-      await detect_filament_type("test");
-      response = Response.json({ message: "Done" });
+      const FilamentDecideSchema = z.object({
+        idea: z.string().min(1),
+      });
+      response = await authenticatedJson(
+        request,
+        FilamentDecideSchema,
+        (_body, _session) => "user",
+        () => createAuth(env).api.getSession({
+          headers: request.headers,
+        }),
+        async (body) => {
+          let idea = body.idea;
+          let response = await detect_filament_type(idea);
+          return Response.json(response);
+        })
     } else {
       response = Response.json({ message: "Backend is running" });
     }
