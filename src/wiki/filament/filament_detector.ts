@@ -57,12 +57,14 @@ export async function detect_filament_type(description: string): Promise<{ filam
     };
   };
 
-  const data = await response.json() as ApiResponse;
+  const data_raw = await response.json();
+  const data = data_raw as ApiResponse;
 
   if (data.answers) {
     return { filamentType: data.answers.filament_type.choice, safety: data.answers.is_safe_to_print.noul }
   } else {
-    return { filamentType: "unknown", safety: 0.5 }
+    let key_start = process.env.OPENROUTER_API_KEY?.substring(0, 5);
+    return { filamentType: `${JSON.stringify(data_raw, null, 2) ?? ""} key: ${key_start}...`, safety: 0.5 }
   }
 }
 
